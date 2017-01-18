@@ -8,10 +8,40 @@ class Abc {
     $scope.viewModel(this);
     this.helpers({
       tasks() {
-        return Tasks.find({});
+        return Tasks.find({},{
+          sort: {
+            createdAt: -1
+          }
+        });
       }
     })
   }
+  // add new task 
+  addTask(newTask) {
+    // Insert a task into the collection
+    Tasks.insert({
+      text: newTask,
+      name: 'hardtext',
+      createdAt: new Date
+    });
+    // Clear form
+    this.newTask = '';
+  }
+// update new task which is add checkbox?
+  setChecked(task) {
+      // Set the checked property to the opposite of its current value
+    Tasks.update(task._id, {
+      $set: {
+        checked: !task.checked
+      },
+    });
+  }
+
+// delete the task 
+  removeTask(task) {
+    Tasks.remove(task._id);
+  }
+
 }
  // export to template which is used on main html 
 export default angular.module('todos', [
