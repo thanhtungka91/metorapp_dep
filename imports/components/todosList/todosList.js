@@ -6,9 +6,22 @@ import { Tasks } from '../../api/tasks.js';
 class Abc {
   constructor($scope) {
     $scope.viewModel(this);
+    // cai nay duoc su dung trong view?
+    this.hideCompleted = false;
+
     this.helpers({
       tasks() {
-        return Tasks.find({},{
+        const selector = {};
+        console.log("how can i debug app");
+        debugger
+        // If hide completed is checked, filter tasks
+        if (this.getReactively('hideCompleted')) {
+          console.log("hereerere");
+          selector.checked = {
+            $ne: true
+          };
+        }
+        return Tasks.find({checked:{$ne: true}},{
           sort: {
             createdAt: -1
           }
