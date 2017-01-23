@@ -21,13 +21,14 @@ class Abc {
         }
 
         // Show newest tasks at the top
+        // here is default for get list tasks?
         return Tasks.find(selector, {
           sort: {
             createdAt: -1
           }
         });
       },
-      // thang nay van nam trong list full task
+      // thang nay van nam trong list full tas
       incompleteCount() {
         return Tasks.find({
           checked: {
@@ -35,6 +36,7 @@ class Abc {
           }
         }).count();
       },
+      //  Get current user 
       currentUser() {
         return Meteor.user();
       }
