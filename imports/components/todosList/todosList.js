@@ -2,7 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import template from './todosList.html';
 import { Tasks } from '../../api/tasks.js';
- 
+ import { Meteor } from 'meteor/meteor';
 class Abc {
   constructor($scope) {
     $scope.viewModel(this);
@@ -12,20 +12,31 @@ class Abc {
     this.helpers({
       tasks() {
         const selector = {};
-        console.log("how can i debug app");
-        debugger
+
         // If hide completed is checked, filter tasks
         if (this.getReactively('hideCompleted')) {
-          console.log("hereerere");
           selector.checked = {
             $ne: true
           };
         }
-        return Tasks.find({checked:{$ne: true}},{
+
+        // Show newest tasks at the top
+        return Tasks.find(selector, {
           sort: {
             createdAt: -1
           }
         });
+      },
+      // thang nay van nam trong list full task
+      incompleteCount() {
+        return Tasks.find({
+          checked: {
+            $ne: true
+          }
+        }).count();
+      },
+      currentUser() {
+        return Meteor.user();
       }
     })
   }
@@ -35,7 +46,9 @@ class Abc {
     Tasks.insert({
       text: newTask,
       name: 'hardtext',
-      createdAt: new Date
+      createdAt: new Date,
+      owner: Meteor.userId(),
+      username: Meteor.user().username
     });
     // Clear form
     this.newTask = '';
