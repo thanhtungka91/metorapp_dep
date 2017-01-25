@@ -43,8 +43,12 @@ class Abc {
     })
   }
   // add new task 
+
   addTask(newTask) {
     // Insert a task into the collection
+    // in here we call method to call to api-> to server 
+    // khong the xoa truc tiep duoc 
+    // con o server thi ro rang la duoc phep delete 
     Meteor.call('tasks.insert', newTask);
     // Clear form
     this.newTask = '';
@@ -57,7 +61,7 @@ class Abc {
 
 // delete the task 
   removeTask(task) {
-    Meteor.call('tasks.remove', task._id;
+    Meteor.call('tasks.remove', task._id);
   }
 
 }

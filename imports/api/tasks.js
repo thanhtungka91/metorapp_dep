@@ -12,7 +12,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
       //no allowed to run Taks.inert()??
     }
-    debugger;
+    // debugger;
     Tasks.insert({
       text,
       createdAt: new Date(),
@@ -22,7 +22,7 @@ Meteor.methods({
   },
   // Remove task 
   'tasks.remove' (taskId) {
-
+//viec chek o day xem co gia tri hay khong ma thoi ko line quan gi den van de inter tca 
     check(taskId, String);
     Tasks.remove(taskId);
   },
